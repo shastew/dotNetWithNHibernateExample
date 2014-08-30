@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                assembly="DealerSite"
+                namespace="DealerSite.Models.Domain">
+  <class name="Quote" table="tbl_quote">
+    <id name="quote_number" type="Int64">
+      <generator class="assigned" />
+    </id>
+    <property name="contractor_id" />
+    <property name="first_name" />
+    <property name="middle" />
+    <property name="last_name" />
+    <property name="home_ph" />
+    <property name="amount_financed" />
+    <property name="loan_rate" />
+    <property name="int_start_date" />
+    <property name="quote_status" />
+    <property name="investor_code" />
+    <property name="sponsor_id" />
+    <property name="installed_measure" />
+    <property name="prefix" />
+    <property name="gen" />
+    <property name="ssn" />
+    <property name="DOB" />
+    <property name="cell_ph" />
+    <property name="email" />
+    <property name="mail_addr1" />
+    <property name="mail_addr2" />
+    <property name="mail_city" />
+    <property name="mail_state" />
+    <property name="mail_zip" />
+    <property name="Isinstall_same_address" />
+    <property name="install_addr1" />
+    <property name="install_city" />
+    <property name="install_state" />
+    <property name="install_zip" />
+    <property name="emp_status" />
+    <property name="emp_occ" />
+    <property name="employer_name" />
+    <property name="emp_addr" />
+    <property name="emp_city" />
+    <property name="emp_st" />
+    <property name="emp_zip" />
+    <property name="work_ph" />
+    <property name="hire_date" />
+    <property name="IsEmployed_by_dlr" />
+    <property name="IsSelfEmpYN" />
+    <property name="IsEmployedYN" />
+    <property name="stated_income" />
+    <property name="annual_income" />
+    <property name="income_range" />
+    <property name="extra_inc1_src" />
+    <property name="extra_income1" />
+    <property name="extra_inc2_src" />
+    <property name="extra_income2" />
+    <property name="AnyForeclosureYN" />
+    <property name="AnyBKYN" />
+    <property name="years_residing" />
+    <property name="prop_type" />
+    <property name="prop_occ" />
+    <property name="prop_assessed_value" />
+    <property name="mortgage_holder" />
+    <property name="mo_mortgage" />
+    <property name="invoice_amt" />
+    <property name="downpayment" />
+    <property name="term" />
+    <property name="stamp_tax" />
+    <property name="Isco_same_address" />
+    <property name="date_received" />
+
+    <many-to-one name="QuoteStatus" class="QuoteStatus" column="quote_status" fetch="join" cascade="none" lazy="false" />    
+    <one-to-one name="Cosigning" cascade="save-update" class="Cosigning" />
+    <many-to-one name="ContractedThrough" class="Contractor" column="contractor_id" fetch="join" cascade="none" lazy="false" />    
+    
+    <bag name="Measures" table="tbl_quote_measures" cascade="save-update" lazy="false">
+      <key column="quote_number" />
+      <one-to-many class="Measure" />
+    </bag> 
+  
+  </class>
+
+  <sql-query name="GetNewQuoteNumber">
+    <return-scalar column="quote" type="Int64"/>
+    exec GetNewQuoteNumber :quote
+  </sql-query>
+</hibernate-mapping>
+
+
+
